@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mincho: 'Shippori Mincho', 'Yu Mincho', serif;
+  --font-cinzel: 'Cinzel', serif;
+  --color-deep-water: #0E7490;
+  --color-deep-water-dark: #164E63;
+  --color-deep-water-light: #22D3EE;
+  --color-section-bg: #F8FAFC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Shippori Mincho', 'Yu Mincho', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #FFFFFF;
+  color: #1E293B;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(14, 116, 144, 0.15);
+  color: #164E63;
+}
+
+/* Custom keyframes for analyzing screen */
+@keyframes magic-ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes magic-ring-spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
+}
+
+.animate-magic-spin {
+  animation: magic-ring-spin 8s linear infinite;
+}
+.animate-magic-spin-reverse {
+  animation: magic-ring-spin-reverse 6s linear infinite;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
