@@ -1033,6 +1033,35 @@ function ResultScreen({ characterKey, onReset }) {
         >
           葬送のフリーレン キャラクター診断
         </motion.p>
+        <motion.div
+          className="flex flex-wrap justify-center gap-4 mt-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.0 }}
+        >
+          <a
+            href="https://mote-iq.com"
+            target="_blank"
+            rel="noopener"
+            className="text-xs tracking-wider underline decoration-dotted underline-offset-2 transition-colors"
+            style={{ color: C.textMuted }}
+            onMouseEnter={(e) => e.currentTarget.style.color = C.textSub}
+            onMouseLeave={(e) => e.currentTarget.style.color = C.textMuted}
+          >
+            モテIQ｜大人の魅力診断
+          </a>
+          <a
+            href="https://jujutsu-shindan.vercel.app"
+            target="_blank"
+            rel="noopener"
+            className="text-xs tracking-wider underline decoration-dotted underline-offset-2 transition-colors"
+            style={{ color: C.textMuted }}
+            onMouseEnter={(e) => e.currentTarget.style.color = C.textSub}
+            onMouseLeave={(e) => e.currentTarget.style.color = C.textMuted}
+          >
+            呪術廻戦キャラ診断
+          </a>
+        </motion.div>
       </div>
     </motion.div>
   );
