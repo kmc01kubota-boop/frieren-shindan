@@ -633,7 +633,7 @@ function QuestionScreen({ question, questionIndex, totalQuestions, onAnswer }) {
         </motion.h2>
 
         {/* Answer options */}
-        <div className="space-y-5 sm:space-y-6">
+        <div className="space-y-7 sm:space-y-8">
           {question.answers.map((answer, index) => {
             const isSelected = selected === index;
             const isOther = selected !== null && selected !== index;
@@ -790,6 +790,46 @@ function AnalyzingScreen({ onComplete }) {
 function ResultScreen({ characterKey, onReset }) {
   const char = CHARACTERS[characterKey];
   const IconComp = char.icon;
+
+  // 動的OGP: mote-iq の OG API を利用してSNSカード画像を生成
+  useEffect(() => {
+    const ogBase = "https://mote-iq.com/api/og";
+    const ogParams = new URLSearchParams({
+      quiz: "frieren",
+      name: char.name,
+      title: char.title,
+      quote: char.quote || "",
+    });
+    const ogImageUrl = `${ogBase}?${ogParams.toString()}`;
+    const pageTitle = `${char.name}（${char.title}）｜フリーレン キャラ診断結果`;
+    const pageDesc = `「${(char.quote || "").slice(0, 40)}」あなたの冒険者タイプを13問で診断。`;
+
+    const setMeta = (property, content) => {
+      let el = document.querySelector(`meta[property="${property}"]`) ||
+               document.querySelector(`meta[name="${property}"]`);
+      if (!el) {
+        el = document.createElement("meta");
+        if (property.startsWith("og:") || property.startsWith("twitter:")) {
+          el.setAttribute("property", property);
+        } else {
+          el.setAttribute("name", property);
+        }
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+
+    document.title = pageTitle;
+    setMeta("og:title", pageTitle);
+    setMeta("og:description", pageDesc);
+    setMeta("og:image", ogImageUrl);
+    setMeta("og:image:width", "1200");
+    setMeta("og:image:height", "630");
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", pageTitle);
+    setMeta("twitter:description", pageDesc);
+    setMeta("twitter:image", ogImageUrl);
+  }, [char]);
 
   const shareText = `葬送のフリーレン キャラクター診断の結果は「${char.name}」（${char.title}）でした！\n\n「${char.quote}」`;
 
