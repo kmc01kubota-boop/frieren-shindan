@@ -879,7 +879,8 @@ function ResultScreen({ characterKey, onReset }) {
   };
 
   const handleLineShare = () => {
-    const url = `https://line.me/R/share?text=${encodeURIComponent(shareText)}`;
+    const siteUrl = 'https://frieren-shindan.vercel.app/';
+    const url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent(shareText)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -1114,6 +1115,13 @@ function ResultScreen({ characterKey, onReset }) {
             style={{ color: C.textMuted }}
             onMouseEnter={(e) => e.currentTarget.style.color = C.textSub}
             onMouseLeave={(e) => e.currentTarget.style.color = C.textMuted}
+            onClick={() => {
+              fetch("https://mote-iq.com/api/track/click", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ source: "frieren-quiz", target: "mote-iq" }),
+              }).catch(() => {});
+            }}
           >
             モテIQ｜大人の魅力診断
           </a>
