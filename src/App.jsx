@@ -633,7 +633,7 @@ function QuestionScreen({ question, questionIndex, totalQuestions, onAnswer }) {
         </motion.h2>
 
         {/* Answer options */}
-        <div className="space-y-3.5 sm:space-y-4">
+        <div className="space-y-5 sm:space-y-6">
           {question.answers.map((answer, index) => {
             const isSelected = selected === index;
             const isOther = selected !== null && selected !== index;
