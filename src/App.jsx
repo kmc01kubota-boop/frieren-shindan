@@ -633,7 +633,7 @@ function QuestionScreen({ question, questionIndex, totalQuestions, onAnswer }) {
         </motion.h2>
 
         {/* Answer options */}
-        <div className="space-y-7 sm:space-y-8">
+        <div className="space-y-10 sm:space-y-12">
           {question.answers.map((answer, index) => {
             const isSelected = selected === index;
             const isOther = selected !== null && selected !== index;
@@ -831,7 +831,34 @@ function ResultScreen({ characterKey, onReset }) {
     setMeta("twitter:image", ogImageUrl);
   }, [char]);
 
-  const shareText = `葬送のフリーレン キャラクター診断の結果は「${char.name}」（${char.title}）でした！\n\n「${char.quote}」`;
+  // 軍師テンプレート: キャラに応じた知的毒舌シェア文言
+  const FRIEREN_SHARE_MAP = {
+    frieren: [
+      "千年の魔法使い曰く：「お前の本質は"果てなき探求者"。…悪くない。千年かけて辿り着く答えもある。」",
+      "鑑定結果：フリーレン型。感情を言葉にするのが苦手でも、その沈黙に意味がある。",
+    ],
+    himmel: [
+      "軍師の分析：ヒンメル型。誰かの記憶に残る生き方を選べる、稀有な器だ。",
+      "鑑定結果：「希望を繋ぐ勇者」。…格好つけすぎだ。だがそれがお前の魔法らしい。",
+    ],
+    fern: [
+      "軍師の見立て：フェルン型。規律と献身の魔法使い。…師匠が泣くぞ、その成長速度は。",
+      "鑑定結果：「守護の魔法使い」。怒ると怖いタイプだな。…褒めてるぞ。",
+    ],
+    stark: [
+      "鑑定結果：シュタルク型。臆病で、それでも前に出る。…それを勇気と呼ぶんだ。",
+      "軍師の判定：「不屈の挑戦者」。弱さを知る者だけが、本物の強さを手にする。",
+    ],
+  };
+
+  const getDefaultShare = () => [
+    `鑑定結果：「${char.title}」。軍師の目から見ても、興味深い器だ。`,
+    `千年の旅の果てに出会った答え——お前は「${char.name}」タイプだ。`,
+  ];
+
+  const templates = FRIEREN_SHARE_MAP[characterKey] || getDefaultShare();
+  const shareTemplate = templates[Math.floor(Math.random() * templates.length)];
+  const shareText = `${shareTemplate}\n\n${char.name}（${char.title}）\n#フリーレン診断`;
 
   const handleShare = async () => {
     if (navigator.share) {
